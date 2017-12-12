@@ -6,7 +6,7 @@
         <span>搜索想买的车</span>
       </div>
       <ul class="choice-list clearfix" >
-        <li @click="showSort" :class="sort ? 'active':''"><a href="#">默认排序</a>
+        <li @click="showSort" :class="sort ? 'active':''"><a href="javascript:void(0)">{{sortMenu.list[sortMenu.ind]}}</a>
           <!--<transition name="bounce" enter-active-class="bounceInLeft" leave-active-class="bounceOutRight">-->
           <el-collapse-transition>
             <ul class="menu-sort"  v-show="sort">
@@ -15,12 +15,12 @@
           </el-collapse-transition>
           <!--</transition>-->
         </li>
-        <li><router-link :to="'/brand'">品牌</router-link></li>
-        <li @click="showPrice" :class="price ? 'active':''"><a href="#">价格</a>
+        <li @click="showBrand"><a href="javascript:void(0)">{{brandName}}</a></li>
+        <li @click="showPrice" :class="price ? 'active':''"><a href="javascript:void(0)">{{priceMenu.list[priceMenu.ind].name}}</a>
         <!--<transition name="bounce" enter-active-class="bounceInLeft" leave-active-class="bounceOutRight">-->
           <el-collapse-transition>
             <ul class="menu-price" v-show="price">
-              <li v-for="(list, index) in priceMenu.list" :key="list.key" :class="{'active':priceMenu.ind === index}" @click="changePriceBgc(index,list.startPrice,list.endPrice)">{{list.name}}</li>
+              <li v-for="(list, index) in priceMenu.list" :class="{'active':priceMenu.ind === index}" @click="changePriceBgc(index,list.startPrice,list.endPrice)">{{list.name}}</li>
             </ul>
           </el-collapse-transition>
         <!--</transition>-->
@@ -44,26 +44,31 @@
     <div class="overlayer" v-show="fixed" @click.self = "handleClose" @touchmove.prevent >
     </div>
     </transition>
+    <brand-list :brand="brand" v-on:get-brand-name="getBrandName" v-on:close-brand="closeBrand" v-show="brand"></brand-list>
   </div>
 </template>
 <style lang="scss">
   @import "../style/scss/_list.scss";
 </style>
 <script>
+  import brandList from '../components/brandList.vue'
   export default {
+    components: {brandList},
     data () {
       return {
         data: [],
         sort: false,
         price: false,
+        brand: false,
         fixed: false,
+        brandName: '品牌',
         sortMenu: {
           list: ['默认排序', '价格最高', '价格最低', '车龄最短', '里程最少'],
           ind: 0
         },
         priceMenu: {
           list: [
-            {name: '全部', key: ''},
+            {name: '全部', startPrice: '', endPrice: ''},
             {name: '5万以内', startPrice: 0, endPrice: 5},
             {name: '5-10万', startPrice: 5, endPrice: 10},
             {name: '10-15万', startPrice: 10, endPrice: 15},
@@ -76,7 +81,7 @@
         },
         term: {
           pageIndex: 1,
-          pageSize: 20,
+          pageSize: 5,
           carBelongType: 1,
           brandName: '',
           startPrice: '',
@@ -115,6 +120,15 @@
         } else {
           this.fixed = false
         }
+      },
+      showBrand () {
+        this.sort = false
+        this.price = false
+        this.fixed = false
+        this.brand = true
+      },
+      closeBrand (brand) {
+        this.brand = brand
       },
       handleClose: function () {
         this.fixed = false
@@ -156,6 +170,17 @@
         this.term.pageIndex = 1
         this.term.startPrice = startPrice
         this.term.endPrice = endPrice
+        this.getCarList()
+      },
+      getBrandName (brandName) {
+        if (brandName !== '') {
+          this.brandName = brandName
+          this.term.brandName = brandName
+        } else {
+          this.brandName = '品牌'
+          this.term.brandName = ''
+        }
+        this.term.pageIndex = 1
         this.getCarList()
       },
       getCarList: function (term) {

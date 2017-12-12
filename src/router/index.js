@@ -26,8 +26,8 @@ export default new Router({
       }
     },
     {
-      path: '/brand',
-      component: resolve => require(['@/page/brand'], resolve),
+      path: '/filter',
+      component: resolve => require(['@/components/filter'], resolve),
       meta: {
         title: '选择品牌'
       }

@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div class="brand-wrap">
     <div class="title">
-      <span @click="goHistory"></span>选择品牌
+      <span @click="closeBrand"></span>选择品牌
     </div>
     <div class="brand-list">
       <ul>
         <li>
           <div class="section">*</div>
-          <div class="inner-list">不限品牌</div>
+          <div class="inner-list" @click="getBrandName('')">不限品牌</div>
         </li>
         <li v-for="(brands,key,index) in brandList">
-          <div class="section">{{key}}</div>
-          <div class="inner-list" v-for="brand in brands">
+          <div :id="'anchor-'+index" class="section">{{key}}</div>
+          <div class="inner-list" v-for="brand in brands" @click="getBrandName(brand.name)">
             {{brand.name}}
           </div>
         </li>
@@ -19,7 +19,7 @@
     </div>
     <div class="brand-anchor">
       <ul>
-        <li v-for="(brands,key,index) in brandList">{{key}}</li>
+        <li v-for="(brands,key,index) in brandList"  @click="goAnchor('#anchor-'+index)">{{key}}</li>
       </ul>
     </div>
   </div>
@@ -165,14 +165,23 @@
         }
       }
     },
+    props: {
+      brandName: ''
+    },
     mounted: function () {
-      console.log(this.brandList)
-
     },
     methods: {
-      goHistory () {
-        this.$router.go('-1')
+      closeBrand () {
+        this.$emit('close-brand', false)
       },
+      goAnchor (selector) {
+        var anchor = this.$el.querySelector(selector)
+        document.documentElement.scrollTop = anchor.offsetTop - 60
+      },
+      getBrandName (brandName) {
+        this.$emit('get-brand-name', brandName)
+        this.closeBrand()
+      }
     }
   }
 </script>
