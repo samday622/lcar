@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@import "_color.scss";
+
+// pixels to rems
+@function pxToRem($px) {
+  @return $px / $baseFontSize * 1rem;
+}
+
+// mixins
+@mixin dz($time:0.25s){
+  -webkit-transition: all $time ease-in-out;
+  -moz-transition: all $time ease-in-out;
+  -o-transition: all $time ease-in-out;
+  transition: all $time ease-in-out;
+}
+
+@mixin bgParam($picName,$width,$height){
+  background: url("#{$img}#{$picName}");
+  background-size: 100% 100%;
+  width: pxToRem($width);
+  height: pxToRem($height);
+}
+@mixin picCenter($top,$width){
+  position: absolute;
+  top:pxToRem($top);
+  left: 50%;
+  margin-left: -(pxToRem($width)/2);
+}
+@mixin picPosition($top,$left){
+  position: absolute;
+  top: pxToRem($top);
+  left: pxToRem($left);
+}
+@mixin dib() {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+@mixin iconFont(){
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  & a:after{
+    display: inline-block;
+    margin-left: pxToRem(5);
+    transform:scale(0.5,0.5);
+  }
+   &.active a:after{
+    color:$BaseC;
+    transform:scale(0.5,0.5) rotate(180deg);
+  }
+}

@@ -1,0 +1,153 @@
+@charset "utf-8";
+@import "../base/_mixin.scss";
+body{
+  background: $Bg;
+}
+.car-wrap{
+  background: $Bg2;
+  .search-wrap{
+    position: relative;
+    z-index: 100;
+    background: $Bg2;
+  }
+  .search{
+    padding:pxToRem(15) pxToRem(35);
+    border-bottom: 1px solid #bfbfbf;
+    span{
+      line-height: pxToRem(60);
+      font-size: pxToRem($FontSize);
+      @include dib;
+      background: #ededed;
+      width: 100%;
+      border-radius: pxToRem(30);
+      padding:0 pxToRem(45);
+      color:$FontC;
+    }
+  }
+  ul.choice-list{
+    border-bottom:1px solid #eeeeee;
+    &>li{
+      float: left;
+      width: 25%;
+      text-align: center;
+      font-size: pxToRem($FontSize2);
+      line-height: pxToRem(90);
+      @include iconFont;
+      color:$BaseFont;
+      a{
+        color:$BaseFont
+      }
+      &:nth-of-type(4) a:after{
+        content: "\e613";
+        transform:scale(0.8,0.8);
+      }
+      & a:after{
+        content: "\e59e";
+      }
+      &.active a{
+        color:$BaseC;
+      }
+    }
+  }
+  ul.menu-sort{
+    width: 100%;
+    position:absolute;
+    background: $Bg2;
+    z-index: 10;
+    margin-top:1px;
+    li{
+      padding-left: pxToRem(18);
+      text-align: left;
+      border-bottom: 1px solid #eeeeee;
+      &.active{
+        color:$BaseC;
+      }
+    }
+  }
+  ul.menu-price{
+    width: 100%;
+    padding:pxToRem(40) 4%;
+    position:absolute;
+    background: $Bg2;
+    z-index: 10;
+    left: 0;
+    margin-top:1px;
+    li{
+      float: left;
+      width: 30%;
+      margin-right: 4%;
+      line-height: pxToRem(50);
+      margin-bottom:pxToRem(25);
+      &.active{
+        background:$BaseC;
+      }
+    }
+    li:nth-of-type(3),li:nth-of-type(6){
+      margin-right: 0;
+    }
+    li:nth-of-type(7){
+      margin-bottom: 0;
+    }
+  }
+  .car-list{
+    section{
+      padding:pxToRem(30);
+      border-bottom:1px solid #eeeeee;
+      a{
+        display:flex;
+        &>div:first-child{
+          flex:none;
+          width:100px;
+        }
+        &>div:last-child{
+          flex:1;
+        }
+        &>div:nth-of-type(1){
+          width: pxToRem(225);
+          img{
+            width: pxToRem(225);
+            height: pxToRem(170);
+          }
+        }
+      }
+      div{
+        &.title,&.tips,&.price{
+          padding-left: pxToRem(25);
+          @include dib;
+          font-size: pxToRem($FontSize);
+          line-height: pxToRem(20);
+        }
+        &.title{
+          line-height: pxToRem(40);
+          height: pxToRem(80);
+          width: 100%;
+          font-size: pxToRem($FontSize3);
+        }
+        &.tips{
+          color: $FontC;
+          font-size: pxToRem(22);
+        }
+        &.price{
+          span:nth-of-type(2){
+            color:#ff1111;
+            font-size: pxToRem(38);
+          }
+        }
+      }
+    }
+  }
+  .overlayer{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#000;
+    opacity:0.7;
+    z-index: 1;
+  }
+  .isFixed{
+    position: fixed;
+    z-index: 100;
+  }
+}
