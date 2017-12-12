@@ -44,7 +44,9 @@
     <div class="overlayer" v-show="fixed" @click.self = "handleClose" @touchmove.prevent >
     </div>
     </transition>
+    <transition name="el-zoom-in-top">
     <brand-list :brand="brand" v-on:get-brand-name="getBrandName" v-on:close-brand="closeBrand" v-show="brand"></brand-list>
+    </transition>
   </div>
 </template>
 <style lang="scss">

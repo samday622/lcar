@@ -11,19 +11,19 @@
         </div>
       </div>
       <div class="f-li">
-        <div>价格</div>
+        <div class="filter-title">价格</div>
         <ul class="clearfix">
           <li v-for="(list, index) in priceMenu.list" :class="{'active':priceMenu.ind === index}" @click="changePriceBgc(index,list.startPrice,list.endPrice)"><div>{{list.name}}</div></li>
         </ul>
       </div>
       <div class="f-age">
-        <div class="clearfix">
+        <div class="clearfix filter-title">
           <span class="fl">车龄<em>(年)</em></span>
           <span class="fr">0-3年</span>
         </div>
         <div class="slider">
           <el-slider
-            v-model="value9"
+            v-model="carAgeMenu"
             range
             show-stops="true"
             show-tooltip="true"
@@ -40,6 +40,29 @@
           </ul>
         </div>
       </div>
+      <div class="f-age">
+        <div class="clearfix filter-title">
+          <span class="fl">里程<em>(万公里)</em></span>
+          <span class="fr">0-10万公里</span>
+        </div>
+        <div class="slider">
+          <el-slider
+            v-model="mileageMenu"
+            range
+            show-stops="true"
+            show-tooltip="true"
+            :max="5">
+          </el-slider>
+          <ul class="ul-mileage  clearfix">
+            <li>0</li>
+            <li>2</li>
+            <li>4</li>
+            <li>6</li>
+            <li>8</li>
+            <li>10</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -51,7 +74,8 @@
     data () {
       return {
         data: [],
-        value9: [0, 3],
+        carAgeMenu: [0,3],
+        mileageMenu: [0, 1],
         priceMenu: {
           list: [
             {name: '全部', startPrice: '', endPrice: ''},
