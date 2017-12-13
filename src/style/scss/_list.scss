@@ -298,3 +298,30 @@ body{
     z-index: 100;
   }
 }
+.top-load-wrapper {
+  line-height: 50px;
+  text-align: center;
+}
+.icon-arrow {
+  transition: .2s;
+  transform: rotate(180deg);
+}
+.icon-loading {
+  transform: rotate(0deg);
+  animation-name: loading;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes loading
+{
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+.mescroll{
+  position: fixed;
+  top: pxToRem(180);
+  bottom: 0;
+  height: auto;
+  background: $Bg2;
+}
