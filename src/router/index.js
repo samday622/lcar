@@ -24,13 +24,6 @@ export default new Router({
       meta: {
         title: '车辆详情'
       }
-    },
-    {
-      path: '/filter',
-      component: resolve => require(['@/components/filter'], resolve),
-      meta: {
-        title: '选择品牌'
-      }
     }
   ]
 })
