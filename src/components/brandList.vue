@@ -17,11 +17,11 @@
         </li>
       </ul>
     </div>
-    <div class="brand-anchor">
+    <!--<div class="brand-anchor">
       <ul>
         <li v-for="(brands,key,index) in brandList"  @click="goAnchor('#anchor-'+index)">{{key}}</li>
       </ul>
-    </div>
+    </div>-->
   </div>
 </template>
 <style lang="scss">

@@ -1,0 +1,42 @@
+@charset "utf-8";
+@import "../base/_mixin.scss";
+.detail-wrap{
+  background: $Bg;
+  min-height: 100vh;
+  .detial-info{
+    margin-top:pxToRem(90);
+    .swiper-slide img{
+      width: 100%;
+    }
+    .swiper-pagination-fraction{
+      color:$Bg;
+      text-align: right;
+      padding-right: pxToRem(35);
+      font-size: $FontSize5;
+    }
+    .car-info{
+      background: $Bg2;
+      padding:pxToRem(20);
+      .car-title{
+        font-size: pxToRem($FontSize6);
+        font-weight: bold;
+        line-height: pxToRem(50);
+      }
+      .car-news{
+        color:$FontC;
+        line-height: pxToRem(60);
+        em{
+          padding:0 pxToRem(20);
+        }
+      }
+      .car-price{
+        font-size: pxToRem($FontSize);
+        span{
+          font-size: pxToRem(38);
+          color: #ff1111;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

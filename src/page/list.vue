@@ -32,7 +32,7 @@
       <div class="mescroll-bounce">
         <div class="car-list" id="car-list" >
           <section class="clearfix" v-for="row in data">
-            <router-link :to="'/detail/'+row.applyId">
+            <router-link :to="'/detail/'+row.carBaseId">
               <div><img :src="row.imgUrl" alt=""></div>
               <div>
                 <div class="title">{{row.carName}}</div>

@@ -6,10 +6,12 @@ import router from './router'
 // import 'vue2-animate/dist/vue2-animate.min.css'
 import axios from 'axios'
 import qs from 'qs'
-import ElementUI from 'element-ui'
+import {Slider} from 'element-ui'
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import 'element-ui/lib/theme-chalk/index.css'
 
-Vue.use(ElementUI)
+Vue.use(Slider)
+Vue.component(CollapseTransition.name, CollapseTransition)
 
 Vue.config.productionTip = false
 
