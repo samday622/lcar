@@ -1,7 +1,7 @@
 
 <template>
   <div class="car-wrap" >
-    <div class="search-wrap">
+    <div class="search-wrap" >
       <div class="search">
         <span>搜索想买的车</span>
       </div>
@@ -28,9 +28,9 @@
         <li @click="showFilter"><a href="#">筛选</a></li>
       </ul>
     </div>
-    <div id="mescroll" class="mescroll">
+    <div id="mescroll" class="mescroll" v-show="carList">
       <div class="mescroll-bounce">
-        <div class="car-list" v-show="carList">
+        <div class="car-list" id="car-list" >
           <section class="clearfix" v-for="row in data">
             <router-link :to="'/detail/'+row.applyId">
               <div><img :src="row.imgUrl" alt=""></div>
@@ -140,6 +140,8 @@
 <script>
   import brandList from '../components/brandList.vue'
   import MeScroll from 'mescroll.js'
+  import empty from '../assets/mescroll-empty.png'
+  import totops from '../assets/mescroll-totop.png'
   export default {
     components: {brandList, MeScroll},
     data () {
@@ -262,40 +264,15 @@
           lessPrice: '',
           lessCarAge: '',
           leastMileage: '',
-          total:''
+          total: ''
         }
       }
     },
     mounted: function () {
-      //this.getCarList(this.term)
-      //创建MeScroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
-      //解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
-      var self = this;
-      self.mescroll = new MeScroll("mescroll", { //请至少在vue的mounted生命周期初始化mescroll,以确保您配置的id能够被找到
-        up: {
-          callback: self.upCallback, //上拉回调
-          //以下参数可删除,不配置
-          page:{size:6}, //可配置每页8条数据,默认10
-          /*toTop:{ //配置回到顶部按钮
-            src : "../res/img/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
-            //html: null, //html标签内容,默认null; 如果同时设置了src,则优先取src
-            //offset : 1000
-          },*/
-          empty:{ //配置列表无任何数据的提示
-            warpId:"dataList",
-            icon : "../res/img/mescroll-empty.png" ,
-						  	tip : "亲,暂无相关数据哦~" ,
-//						  	btntext : "去逛逛 >" ,
-//						  	btnClick : function() {
-//						  		alert("点击了去逛逛按钮");
-//						  	}
-          },
-          //vue的案例请勿配置clearId和clearEmptyId,否则列表的数据模板会被清空
-          //vue的案例请勿配置clearId和clearEmptyId,否则列表的数据模板会被清空
-//						clearId: "dataList",
-//						clearEmptyId: "dataList"
-        }
-      })
+      // this.getCarList(this.term)
+      // 创建MeScroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
+      // 解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
+      this.mescroll = this.getNewMescroll()
     },
     methods: {
       showSort () {
@@ -322,6 +299,7 @@
         this.fixed = false
         this.carList = false
         this.brand = true
+        this.mescroll.destroy();
       },
       showFilter () {
         this.sort = false
@@ -330,14 +308,17 @@
         this.brand = false
         this.carList = false
         this.filter = true
+        this.mescroll.destroy();
       },
       closeBrand (brand) {
         this.brand = brand
         this.carList = true
+        this.mescroll = this.getNewMescroll()
       },
       closeFilter () {
         this.filter = false
         this.carList = true
+        this.mescroll = this.getNewMescroll()
       },
       handleClose () {
         this.fixed = false
@@ -372,7 +353,7 @@
           this.term.lessCarAge = ''
           this.term.leastMileage = 1
         }
-        this.getCarList()
+        this.mescroll.resetUpScroll(null)
       },
       changePriceBgc (index, startPrice, endPrice) {
         this.term.pageIndex = 1
@@ -382,7 +363,7 @@
           this.priceFilterMenu.ind = index
         } else {
           this.priceMenu.ind = index
-          this.getCarList()
+          this.mescroll.resetUpScroll(null)
         }
       },
       changeMileageBgc (index, key) {
@@ -414,6 +395,7 @@
             this.filterBrandName = '不限品牌'
             this.term.brandName = brandName
           }
+          this.mescroll = this.getNewMescroll()
         } else {
           if (brandName !== '') {
             this.brandName = brandName
@@ -423,22 +405,8 @@
             this.term.brandName = ''
           }
           this.term.pageIndex = 1
-          this.getCarList()
+          this.mescroll.resetUpScroll(null)
         }
-      },
-      getCarList () {
-        this.$ajax({
-          method: 'post',
-          url: '/buy/list',
-          data: this.$qs.stringify(this.term)
-        })
-        .then(function (response) {
-          this.data = response.data
-          console.log(this.data)
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error)
-        })
       },
       resetFilter () {
         this.filterBrandName = '不限品牌'
@@ -462,46 +430,47 @@
       getFilterCarList () {
         this.filter = false
         this.carList = true
-        this.getCarList()
+        this.mescroll = this.getNewMescroll()
+        this.mescroll.resetUpScroll(null)
       },
       formatMileage (val) {
         return val * 2
       },
-      upCallback: function(page) {
-        //联网加载数据
+      upCallback: function (page) {
+        // 联网加载数据
         var self = this
         self.term.pageIndex = page.num
         self.term.pageSize = page.size
-        self.getListDataFromNet(page.num, page.size, function(curPageData) {
-          //curPageData=[]; //打开本行注释,可演示列表无任何数据empty的配置
-          //如果是第一页需手动制空列表 (代替clearId和clearEmptyId的配置)
-          if(page.num == 1) self.data = [];
+        self.getListDataFromNet(page.num, page.size, function (curPageData) {
+          // curPageData=[]; //打开本行注释,可演示列表无任何数据empty的配置
+          // 如果是第一页需手动制空列表 (代替clearId和clearEmptyId的配置)
+          if (page.num === 1) self.data = []
 
-          //更新列表数据
-          self.data = self.data.concat(curPageData);
+          // 更新列表数据
+          self.data = self.data.concat(curPageData)
 
-          //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
-          //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
-          console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length+", self.pdlist.length==" + self.data.length);
+          // 联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+          // mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+          // console.log('page.num=' + page.num + ', page.size=' + page.size + ', curPageData.length=' + curPageData.length + ', self.pdlist.length==' + self.data.length)
 
-          //方法一(推荐): 后台接口有返回列表的总页数 totalPage
-          //self.mescroll.endByPage(curPageData.length, self.term.total); //必传参数(当前页的数据个数, 总页数)
+          // 方法一(推荐): 后台接口有返回列表的总页数 totalPage
+          self.mescroll.endByPage(curPageData.length, self.term.total) // 必传参数(当前页的数据个数, 总页数)
 
-          //方法二(推荐): 后台接口有返回列表的总数据量 totalSize
-          //self.mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+          // 方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+          // self.mescroll.endBySize(curPageData.length, totalSize); // 必传参数(当前页的数据个数, 总数据量)
 
-          //方法三(推荐): 您有其他方式知道是否有下一页 hasNext
-          //self.mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+          // 方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+          // self.mescroll.endSuccess(curPageData.length, hasNext); // 必传参数(当前页的数据个数, 是否有下一页true/false)
 
-          //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
-          self.mescroll.endSuccess(curPageData.length);
-
-        }, function() {
-          //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-          self.mescroll.endErr();
-        });
+          // 方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+          // self.mescroll.endSuccess(curPageData.length)
+          self.mescroll.os.ios = true
+        }, function () {
+          // 联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+          self.mescroll.endErr()
+        })
       },
-      getListDataFromNet (pageNum,pageSize,successCallback,errorCallback) {
+      getListDataFromNet (pageNum, pageSize, successCallback, errorCallback) {
         this.$ajax({
           method: 'post',
           url: '/buy/list',
@@ -510,15 +479,48 @@
           .then(function (response) {
             var data = response.data
             this.term.total = data.total
-            var listData=[]
+            var listData = []
             for (var i = 0; i < data.rows.length; i++) {
               listData.push(data.rows[i])
             }
-            successCallback&&successCallback(listData);//成功回调*/
+            successCallback && successCallback(listData) // 成功回调*/
           }.bind(this))
           .catch(function (error) {
             console.log(error)
           })
+      },
+      getNewMescroll () {
+        var self = this
+        // 创建MeScroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
+        // 解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
+        return new MeScroll('mescroll', { // 请至少在vue的mounted生命周期初始化mescroll,以确保您配置的id能够被找到
+          up: {
+            callback: self.upCallback, // 上拉回调
+            // 以下参数可删除,不配置
+            page: {size: 6}, // 可配置每页8条数据,默认10
+            toTop: { // 配置回到顶部按钮
+              src: totops // 默认滚动到1000px显示,可配置offset修改
+              // html: null, // html标签内容,默认null; 如果同时设置了src,则优先取src
+              // offset : 1000
+            },
+            // 配置列表无任何数据的提示
+            empty: {
+              warpId: 'car-list',
+              icon: empty,
+              tip: '亲,暂无相关车辆哦~'
+              // btntext : "去逛逛 >" ,
+              // btnClick : function() {
+              // alert("点击了去逛逛按钮");
+              // }
+            },
+            isLock: true,
+            htmlNodata: '<p class="upwarp-nodata">-- 没有更多车辆了 --</p>'
+            // vue的案例请勿配置clearId和clearEmptyId,否则列表的数据模板会被清空
+            // vue的案例请勿配置clearId和clearEmptyId,否则列表的数据模板会被清空
+            // clearId: "dataList",
+            // clearEmptyId: "dataList"
+          }
+        })
       }
     }
   }

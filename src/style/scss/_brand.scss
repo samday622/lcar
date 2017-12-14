@@ -2,14 +2,12 @@
 @import "../base/_mixin.scss";
 .brand-wrap{
   background: $Bg2;
-  position: fixed;
+  position: absolute;
   overflow: auto;
   z-index: 100;
   top: 0;
   width: 100%;
-  font-size: $FontSize4;
-  height: 100%;
-  min-height: 100vh;
+  font-size: pxToRem($FontSize4);
   .title{
     line-height: pxToRem(90);
     height: pxToRem(90);
@@ -33,6 +31,7 @@
   .brand-list{
     margin-top:pxToRem(90);
     font-size:pxToRem($FontSize2);
+    -webkit-overflow-scrolling: touch;
     ul{
       width: 100%;
       div.section{
@@ -55,10 +54,10 @@
     position: fixed;
     font-size: pxToRem(22);
     right: pxToRem(30);
-    top: pxToRem(180);
+    top: pxToRem(50);
     background: none;
-    line-height: pxToRem(40);
-    width: pxToRem(30);
+    line-height: pxToRem(50);
+    width: pxToRem(60);
     text-align: center;
   }
 
