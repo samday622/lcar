@@ -37,6 +37,7 @@
     top: 0;
     font-size: pxToRem($FontSize3);
     background: $Bg2;
+    z-index: 9999;
     span {
       position: absolute;
       @include iconFont;
@@ -58,3 +59,46 @@
 .icon-shangla:after { content: "\e63a"; }
 
 .icon-download:after { content: "\e59e";}
+
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.lazy-img-fadein[lazy=loaded] {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+.lazy-img-fadein[lazy=loading] {
+  width: 40px!important;
+  margin: auto;
+}
+.lazy-img-fadein[lazy-progressive=true] {
+  width: 100%!important;
+  margin: auto;
+}
+.lazy-img-fadein[lazy=error] {
+  border-radius: 2px;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}

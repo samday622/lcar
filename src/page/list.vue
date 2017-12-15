@@ -299,7 +299,7 @@
         this.fixed = false
         this.carList = false
         this.brand = true
-        this.mescroll.destroy();
+        this.mescroll.destroy()
       },
       showFilter () {
         this.sort = false
@@ -308,16 +308,18 @@
         this.brand = false
         this.carList = false
         this.filter = true
-        this.mescroll.destroy();
+        this.mescroll.destroy()
       },
       closeBrand (brand) {
         this.brand = brand
         this.carList = true
+        this.mescroll.removeEmpty()
         this.mescroll = this.getNewMescroll()
       },
       closeFilter () {
         this.filter = false
         this.carList = true
+        this.mescroll.removeEmpty()
         this.mescroll = this.getNewMescroll()
       },
       handleClose () {

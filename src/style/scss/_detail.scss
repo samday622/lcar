@@ -3,6 +3,7 @@
 .detail-wrap{
   background: $Bg;
   min-height: 100vh;
+  padding-bottom: pxToRem(150);
   .detial-info{
     margin-top:pxToRem(90);
     .swiper-slide img{
@@ -37,6 +38,93 @@
           font-weight: bold;
         }
       }
+    }
+    .car-detail-info{
+      text-align: center;
+      background: $Bg2;
+      margin:pxToRem(20);
+      border-radius: pxToRem(10);
+      .car-detail-title{
+        margin:0 pxToRem(50);
+        line-height: pxToRem(100);
+        font-size: pxToRem($FontSize3);
+        text-align: center;
+        position: relative;
+        div{
+          width: pxToRem(200);
+          display: inline-block;
+          position: relative;
+          z-index: 10;
+          background: $Bg2;
+        }
+        em{
+          display: inline-block;
+          border-bottom: 1px solid #bfbfbf;
+          width: 100%;
+          position: absolute;
+          left: 0;
+          top:pxToRem(50);
+          z-index: 1;
+        }
+      }
+      .car-detail-list{
+        padding:0 pxToRem(20);
+        width: 100%;
+        margin-top:-(pxToRem(20));
+        font-size: pxToRem($FontSize5);
+        span{
+          display: inline-block;
+          border-bottom:1px solid #bfbfbf;
+          line-height: pxToRem(80);
+          &:nth-of-type(1){
+            width: 30%;
+            padding-left: pxToRem(10);
+            text-align: left;
+          }
+          &:nth-of-type(2){
+            width: 70%;
+            padding-right: pxToRem(35);
+            text-align: right;
+          }
+        }
+        &:last-of-type{
+          span{
+            border:none;
+          }
+        }
+      }
+      .car-description{
+        text-align: left;
+        font-size: pxToRem($FontSize);
+        padding:0 pxToRem(25) pxToRem(35) pxToRem(25);
+      }
+    }
+    .car-img-list{
+      padding:0 pxToRem(20);
+      li{
+        margin-bottom: pxToRem(20);
+        width: 100%;
+      }
+      img{
+        width: 100%;
+      }
+    }
+  }
+  .detail-btn{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    text-align: center;
+    line-height: pxToRem(80);
+    font-size: pxToRem($FontSize3);
+    z-index: 20;
+    .phone-btn{
+      width: 50%;
+      background: $Bg2;
+    }
+    .order-btn{
+      width: 50%;
+      background: $BaseC;
     }
   }
 }

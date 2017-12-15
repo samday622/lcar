@@ -9,6 +9,15 @@ import qs from 'qs'
 import {Slider} from 'element-ui'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import 'element-ui/lib/theme-chalk/index.css'
+import VueLazyload from 'vue-lazyload'
+
+// or with options
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: require('./assets/loading-spin.svg'),
+  loading: require('./assets/loading-spin.svg'),
+  attempt: 1
+})
 
 Vue.use(Slider)
 Vue.component(CollapseTransition.name, CollapseTransition)
