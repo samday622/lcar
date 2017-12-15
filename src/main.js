@@ -3,10 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import 'vue2-animate/dist/vue2-animate.min.css'
 import axios from 'axios'
 import qs from 'qs'
-import {Slider} from 'element-ui'
+import {Slider, Input, Select, TimePicker, DatePicker, Option, Form, FormItem} from 'element-ui'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueLazyload from 'vue-lazyload'
@@ -20,6 +19,13 @@ Vue.use(VueLazyload, {
 })
 
 Vue.use(Slider)
+Vue.use(Input)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(TimePicker)
+Vue.use(DatePicker)
+Vue.use(Form)
+Vue.use(FormItem)
 Vue.component(CollapseTransition.name, CollapseTransition)
 
 Vue.config.productionTip = false

@@ -15,12 +15,19 @@ export default new Router({
       path: '/list',
       component: resolve => require(['@/page/list'], resolve),
       meta: {
-        title: '登录'
+        title: '车源列表'
       }
     },
     {
       path: '/detail/:id',
       component: resolve => require(['@/page/detail'], resolve),
+      meta: {
+        title: '车辆详情'
+      }
+    },
+    {
+      path: '/sellcar',
+      component: resolve => require(['@/page/sellcar'], resolve),
       meta: {
         title: '车辆详情'
       }

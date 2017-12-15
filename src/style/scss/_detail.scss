@@ -69,28 +69,28 @@
       }
       .car-detail-list{
         padding:0 pxToRem(20);
-        width: 100%;
-        margin-top:-(pxToRem(20));
         font-size: pxToRem($FontSize5);
+        border-bottom:1px solid #bfbfbf;
+        margin-left: pxToRem(20);
+        margin-right: pxToRem(20);
+        margin-top:-(pxToRem(10));
         span{
           display: inline-block;
-          border-bottom:1px solid #bfbfbf;
-          line-height: pxToRem(80);
+          line-height: pxToRem(70);
           &:nth-of-type(1){
             width: 30%;
-            padding-left: pxToRem(10);
             text-align: left;
           }
           &:nth-of-type(2){
             width: 70%;
-            padding-right: pxToRem(35);
             text-align: right;
           }
         }
+        &:first-of-type{
+          margin-top:-(pxToRem(20));
+        }
         &:last-of-type{
-          span{
-            border:none;
-          }
+          border:none;
         }
       }
       .car-description{
