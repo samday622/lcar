@@ -2,7 +2,7 @@
 <template>
   <div class="car-wrap" >
     <div class="search-wrap" >
-      <div class="search">
+      <div class="search" @click="showSearch">
         <span>搜索想买的车</span>
       </div>
       <ul class="choice-list clearfix" >
@@ -131,6 +131,18 @@
     <transition name="el-zoom-in-top">
       <brand-list :brand="brand" v-on:get-brand-name="getBrandName" v-on:close-brand="closeBrand" v-show="brand"></brand-list>
     </transition>
+    <!-- 搜索 -->
+      <div class="car-search-wrap" v-show="search">
+        <form action v-on:submit.prevent="onSubmit">
+          <div class="search-title-wrap">
+            <span>
+              <input type="text" v-model="searchBrandName" @keyup.enter="searchCarByBrandName" placeholder="搜索想买的车">
+              <!--<el-input v-model="searchBrandName" @keyup.enter.native="searchCarByBrandName" placeholder="搜索想买的车"></el-input>-->
+            </span>
+            <span @click="search=false">取消</span>
+          </div>
+        </form>
+      </div>
   </div>
 </template>
 <style lang="scss">
@@ -153,7 +165,9 @@
         brand: false,
         fixed: false,
         carList: true,
+        search: false,
         brandName: '品牌',
+        searchBrandName: '',
         filter: false,
         filterBrandName: '不限品牌',
         sortMenu: {
@@ -310,6 +324,14 @@
         this.filter = true
         this.mescroll.destroy()
       },
+      showSearch () {
+        this.sort = false
+        this.price = false
+        this.fixed = false
+        this.brand = false
+        this.filter = false
+        this.search = true
+      },
       closeBrand (brand) {
         this.brand = brand
         this.carList = true
@@ -432,6 +454,7 @@
       getFilterCarList () {
         this.filter = false
         this.carList = true
+        this.mescroll.removeEmpty()
         this.mescroll = this.getNewMescroll()
         this.mescroll.resetUpScroll(null)
       },
@@ -523,6 +546,18 @@
             // clearEmptyId: "dataList"
           }
         })
+      },
+      searchCarByBrandName () {
+        this.search = false
+        this.brandName = this.searchBrandName
+        this.term.brandName = this.brandName
+        this.mescroll.removeEmpty()
+        this.mescroll = this.getNewMescroll()
+        document.activeElement.blur()
+        this.mescroll.resetUpScroll(null)
+        this.searchBrandName = ''
+      },
+      onSubmit () {
       }
     }
   }
