@@ -31,6 +31,13 @@ export default new Router({
       meta: {
         title: '车辆详情'
       }
+    },
+    {
+      path: '/order/:id',
+      component: resolve => require(['@/page/order'], resolve),
+      meta: {
+        title: '预约看车'
+      }
     }
   ]
 })

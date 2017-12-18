@@ -90,16 +90,13 @@
       },
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
-          debugger
           if (valid) {
-            debugger
             this.$ajax({
               method: 'post',
               url: '/sell/order',
               data: this.$qs.stringify(this.sellForm)
             })
               .then(function (response) {
-                debugger
                 if (response.data.errorCode === 0) {
                   alert('提交成功')
                 } else {
@@ -107,7 +104,6 @@
                 }
               })
               .catch(function (error) {
-                debugger
                 console.log(error)
               })
           } else {

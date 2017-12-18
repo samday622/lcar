@@ -38,7 +38,7 @@
     </div>
     <div class="detail-btn">
         <a href="tel:021-52686180,8070" class="phone-btn fl">联系客服</a>
-        <a class="order-btn fr">预约到店</a>
+        <router-link :to="'/order/' + $route.params.id" class="order-btn fr">预约到店</router-link>
     </div>
   </div>
 </template>

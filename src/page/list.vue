@@ -551,8 +551,6 @@
         this.search = false
         this.brandName = this.searchBrandName
         this.term.brandName = this.brandName
-        this.mescroll.removeEmpty()
-        this.mescroll = this.getNewMescroll()
         document.activeElement.blur()
         this.mescroll.resetUpScroll(null)
         this.searchBrandName = ''
