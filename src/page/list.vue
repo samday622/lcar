@@ -313,7 +313,9 @@
         this.fixed = false
         this.carList = false
         this.brand = true
-        this.mescroll.destroy()
+        if (!this.filter) {
+          this.mescroll.destroy()
+        }
       },
       showFilter () {
         this.sort = false
@@ -335,8 +337,10 @@
       closeBrand (brand) {
         this.brand = brand
         this.carList = true
-        this.mescroll.removeEmpty()
-        this.mescroll = this.getNewMescroll()
+        if (!this.filter) {
+          this.mescroll.removeEmpty()
+          this.mescroll = this.getNewMescroll()
+        }
       },
       closeFilter () {
         this.filter = false
@@ -421,6 +425,7 @@
             this.term.brandName = brandName
           }
         } else {
+          debugger
           if (brandName !== '') {
             this.brandName = brandName
             this.filterBrandName = brandName
