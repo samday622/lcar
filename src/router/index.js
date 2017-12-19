@@ -38,6 +38,13 @@ export default new Router({
       meta: {
         title: '预约看车'
       }
+    },
+    {
+      path: '/custom',
+      component: resolve => require(['@/page/custom'], resolve),
+      meta: {
+        title: '定制买车'
+      }
     }
   ]
 })

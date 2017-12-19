@@ -22,6 +22,7 @@
           <el-date-picker
             v-model="orderForm.date"
             type="date"
+            :editable="false"
             placeholder="请选择预约日期">
           </el-date-picker>
         </el-form-item>
@@ -33,6 +34,7 @@
               step: '00:15',
               end: '18:30'
             }"
+            :editable="false"
             placeholder="请选择预约时间">
           </el-time-select>
         </el-form-item>
@@ -135,10 +137,10 @@
             { required: true, pattern: /^(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/, message: '手机号格式错误', trigger: 'blur' }
           ],
           date: [
-            { required: true, message: '请选择预约日期', trigger: 'change' }
+            { required: true, type: 'date', message: '请选择预约日期', trigger: 'change' }
           ],
           time: [
-            { required: true, message: '请选择预约时间', trigger: 'change' }
+            { required: true, type: 'date', message: '请选择预约时间', trigger: 'change' }
           ]
         }
       }

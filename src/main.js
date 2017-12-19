@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import qs from 'qs'
-import {Slider, Input, Select, TimeSelect, TimePicker, DatePicker, Option, Form, FormItem} from 'element-ui'
+import {Slider, Button, Input, Select, TimeSelect, TimePicker, DatePicker, Option, Form, FormItem} from 'element-ui'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueLazyload from 'vue-lazyload'
@@ -27,6 +27,7 @@ Vue.use(DatePicker)
 Vue.use(TimeSelect)
 Vue.use(Form)
 Vue.use(FormItem)
+Vue.use(Button)
 Vue.component(CollapseTransition.name, CollapseTransition)
 
 Vue.config.productionTip = false
