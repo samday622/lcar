@@ -145,32 +145,26 @@
         this.seriesList = this.series[index]
       },
       getCode (formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$ajax({
-              method: 'post',
-              url: '/phoneValidCode',
-              data: this.$qs.stringify(this.customeForm)
+        if (this.customeForm.phone !== '') {
+          this.$ajax({
+            method: 'post',
+            url: '/phoneValidCode',
+            data: this.$qs.stringify(this.customeForm)
+          })
+            .then(function (response) {
+              if (response.data === undefined || response.data === null) {
+                return alert('获取验证码失败')
+              }
+              if (response.data.errorCode === 0) {
+                this.timer(60)
+              } else {
+                alert(response.data.errorText)
+              }
             })
-              .then(function (response) {
-                if (response.data === undefined || response.data === null) {
-                  return alert('获取验证码失败')
-                }
-                if (response.data.errorCode === 0) {
-                  this.timer(60)
-                } else {
-                  alert(response.data.errorText)
-                }
-              })
-              .catch(function (error) {
-                console.log(error)
-              })
-            console.log(this.$qs.stringify(this.customeForm))
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
+            .catch(function (error) {
+              console.log(error)
+            })
+        }
       },
       timer (wait) {
         if (wait === 0) {

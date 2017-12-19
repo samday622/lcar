@@ -29,7 +29,7 @@ export default new Router({
       path: '/sellcar',
       component: resolve => require(['@/page/sellcar'], resolve),
       meta: {
-        title: '车辆详情'
+        title: '我要卖车'
       }
     },
     {
@@ -44,6 +44,13 @@ export default new Router({
       component: resolve => require(['@/page/custom'], resolve),
       meta: {
         title: '定制买车'
+      }
+    },
+    {
+      path: '/menu',
+      component: resolve => require(['@/page/menu'], resolve),
+      meta: {
+        title: '列表'
       }
     }
   ]

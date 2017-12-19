@@ -414,19 +414,21 @@
         if (this.filter) {
           if (brandName !== '') {
             this.filterBrandName = brandName
+            this.brandName = brandName
             this.term.brandName = brandName
           } else {
             this.filterBrandName = '不限品牌'
             this.term.brandName = brandName
           }
-          this.mescroll = this.getNewMescroll()
         } else {
           if (brandName !== '') {
             this.brandName = brandName
+            this.filterBrandName = brandName
             this.term.brandName = brandName
           } else {
             this.brandName = '品牌'
             this.term.brandName = ''
+            this.filterBrandName = '不限品牌'
           }
           this.term.pageIndex = 1
           this.mescroll.resetUpScroll(null)
@@ -454,6 +456,12 @@
       getFilterCarList () {
         this.filter = false
         this.carList = true
+        if (this.filterBrandName === '不限品牌') {
+          this.brandName = '品牌'
+        } else {
+          this.brandName = this.filterBrandName
+        }
+        this.priceMenu.ind = this.priceFilterMenu.ind
         this.mescroll.removeEmpty()
         this.mescroll = this.getNewMescroll()
         this.mescroll.resetUpScroll(null)
