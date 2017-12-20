@@ -160,7 +160,6 @@
               data: this.$qs.stringify(this.orderForm)
             })
               .then(function (response) {
-                debugger
                 if (response.data.errorCode === 0) {
                   alert('预约成功')
                 } else {

@@ -64,6 +64,13 @@
     background: $BaseC;
     color:$BaseFont
   }
+  .sell-wrap .sell-list .el-form-item{
+    padding: 1rem;
+    margin-bottom: -1px;
+  }
+  .el-form > .el-form-item:nth-of-type(7){
+    padding-bottom: 2rem;
+  }
 </style>
 <script>
   export default {
@@ -173,7 +180,7 @@
           this.flag = true
         } else {
           this.flag = false
-          this.codeText = wait + '秒后重新获取'
+          this.codeText = '重新获取(' + wait + '秒)'
           wait--
           setTimeout(function () {
             this.timer(wait)

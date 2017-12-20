@@ -425,7 +425,6 @@
             this.term.brandName = brandName
           }
         } else {
-          debugger
           if (brandName !== '') {
             this.brandName = brandName
             this.filterBrandName = brandName
