@@ -5,7 +5,8 @@
     </div>
     <div class="detial-info">
       <swiper :options="swiperOption">
-        <swiper-slide v-for="carImg in data.carImgs" :key="carImg.id"><img :src="carImg.imgPath"></swiper-slide>
+        <!--<swiper-slide v-for="carImg in data.carImgs" :key="carImg.id"><img :src="carImg.imgPath"></swiper-slide>-->
+        <swiper-slide v-for="carImg in data.carImgs" :key="carImg.id"><div v-bind:style="{backgroundImage:'url(' + carImg.imgPath + ')', height:'300px', backgroundSize:'cover'}"></div></swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
       <div class="car-info">
