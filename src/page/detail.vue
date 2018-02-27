@@ -12,7 +12,7 @@
       <div class="car-info">
         <div class="car-title">{{data.carBase.brandName + ' ' + data.carBase.modelYear + ' ' + data.carBase.displacement + data.carBase.displacementUnit + ' ' + data.carBase.sellName}}</div>
         <div class="car-news">{{data.carBase.licensingTime + '上牌'}} <em>|</em> {{data.carBase.mileage + '万公里'}} </div>
-        <div class="car-price">隆筹好价：<span>{{data.carBase.currentPrice + '万'}}</span></div>
+        <div class="car-price">隆筹好价：<span>{{toDecimal2(data.carBase.currentPrice/10000) + '万'}}</span></div>
       </div>
       <div class="car-detail-info">
         <div class="car-detail-title">
@@ -89,6 +89,23 @@
       },
       goHistory () {
         this.$router.go(-1)
+      },
+      toDecimal2 (x) {
+        var f = parseFloat(x)
+        if (isNaN(f)) {
+          return false
+        }
+        f = Math.round(x * 100) / 100
+        var s = f.toString()
+        var rs = s.indexOf('.')
+        if (rs < 0) {
+          rs = s.length
+          s += '.'
+        }
+        while (s.length <= rs + 2) {
+          s += '0'
+        }
+        return s
       }
     }
   }

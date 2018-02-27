@@ -190,6 +190,7 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.customeForm.price = this.customeForm.price * 10000
             this.$ajax({
               method: 'post',
               url: '/buy/buyPersonal',

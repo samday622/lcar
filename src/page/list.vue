@@ -37,7 +37,7 @@
               <div>
                 <div class="title">{{row.carName}}</div>
                 <div class="tips">{{row.licensingTime}}上牌  |  {{row.mileage}}万公里</div>
-                <div class="price"><span>隆筹好价：</span><span>{{row.currentPrice}}万</span></div>
+                <div class="price"><span>隆筹好价：</span><span>{{toDecimal2(row.currentPrice.split(',').join('')/10000)}}万</span></div>
               </div>
             </router-link>
           </section>
@@ -385,8 +385,8 @@
       },
       changePriceBgc (index, startPrice, endPrice) {
         this.term.pageIndex = 1
-        this.term.startPrice = startPrice
-        this.term.endPrice = endPrice
+        this.term.startPrice = startPrice * 10000
+        this.term.endPrice = endPrice * 10000
         if (this.filter) {
           this.priceFilterMenu.ind = index
         } else {
@@ -568,6 +568,23 @@
         this.searchBrandName = ''
       },
       onSubmit () {
+      },
+      toDecimal2 (x) {
+        var f = parseFloat(x)
+        if (isNaN(f)) {
+          return false
+        }
+        f = Math.round(x * 100) / 100
+        var s = f.toString()
+        var rs = s.indexOf('.')
+        if (rs < 0) {
+          rs = s.length
+          s += '.'
+        }
+        while (s.length <= rs + 2) {
+          s += '0'
+        }
+        return s
       }
     }
   }

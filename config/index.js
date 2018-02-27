@@ -12,8 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/**': {
-        target: 'http://121.40.49.29:8989', // 你接口的域名
-        //target: 'http://localhost:8088', // 你接口的域名
+        //target: 'http://121.40.49.29:8989', // 你接口的域名
+        target: 'http://localhost:8088', // 你接口的域名
         secure: false,
         changeOrigin: false
       }
