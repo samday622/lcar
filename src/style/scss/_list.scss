@@ -126,6 +126,7 @@ body{
         &.tips{
           color: $FontC;
           font-size: pxToRem(22);
+          width: 100%;
         }
         &.price{
           span:nth-of-type(2){

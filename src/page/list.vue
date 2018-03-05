@@ -37,7 +37,7 @@
               <div>
                 <div class="title">{{row.carName}}</div>
                 <div class="tips">{{row.licensingTime}}上牌  |  {{row.mileage}}万公里</div>
-                <div class="price"><span>隆筹好价：</span><span>{{toDecimal2(row.currentPrice.split(',').join('')/10000)}}万</span></div>
+                <div class="price"><span>隆筹好价：</span><span>{{row.currentPrice}}万</span></div>
               </div>
             </router-link>
           </section>
@@ -287,6 +287,11 @@
       // 创建MeScroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
       // 解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
       this.mescroll = this.getNewMescroll()
+    },
+
+    beforeRouteLeave (to, from, next) {
+      this.mescroll.destroy()
+      next()
     },
     methods: {
       showSort () {
@@ -585,7 +590,7 @@
           s += '0'
         }
         return s
-      }
+      },
     }
   }
 </script>

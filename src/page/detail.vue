@@ -49,7 +49,9 @@
 <script>
   import 'swiper/dist/css/swiper.css'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
+  import MeScroll from 'mescroll.js'
   export default {
+    components: { MeScroll },
     data () {
       return {
         data: {
