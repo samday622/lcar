@@ -555,7 +555,7 @@
               // alert("点击了去逛逛按钮");
               // }
             },
-            isLock: true,
+            // isLock: true,
             htmlNodata: '<p class="upwarp-nodata">-- 没有更多车辆了 --</p>'
             // vue的案例请勿配置clearId和clearEmptyId,否则列表的数据模板会被清空
             // vue的案例请勿配置clearId和clearEmptyId,否则列表的数据模板会被清空
@@ -590,7 +590,7 @@
           s += '0'
         }
         return s
-      },
+      }
     }
   }
 </script>
